@@ -7,6 +7,7 @@
 #define TP3_CODE_MEMORYMANAGER_H
 #include <unordered_map>
 #include <iostream>
+#include <queue>
 #include "Program.h"
 
 class MemoryManager {
@@ -37,5 +38,6 @@ private:
     size_t currentRamAddress;
     std::unordered_map<std::string, Program> ram;
     std::unordered_map<std::string, Program> virtualMemory;
+    std::queue<std::string> ramQueue;
 };
 #endif //TP3_CODE_MEMORYMANAGER_H

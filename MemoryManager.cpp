@@ -17,21 +17,33 @@ MemoryManager::MemoryManager(size_t ramSize, size_t virtualMemorySize):
 
 //Methode pour charger le programme
 bool MemoryManager::loadProgram(Program &program){
-    if (currentRamAddress + program.getMemorySize() <= ramSize) {
-        program.setStartAddress(currentRamAddress);
-        program.setLoaded(true);
-        ram.insert({program.getName(), program});
-        currentRamAddress += program.getMemorySize();
-        return true;
-    } else {
-        virtualMemory.insert({program.getName(), program});
-        return false;
+    //s'assurer qu'il y a assez de place dans la ram pour le program
+    while(currentRamAddress + program.getMemorySize() > ramSize){
+        swapOutProgram();
     }
+
+    //ajouter le program dans la ram
+    ram.insert({program.getName(), program});
+    program.setStartAddress(currentRamAddress);
+    program.setLoaded(true);
+    currentRamAddress += program.getMemorySize();
 }
 
 //Methode pour swapperOut le programme
 void MemoryManager::swapOutProgram(){
+    //obtenir nom du program a swapper
+    const std::string swappedProgramName = ramQueue.front();
+    ramQueue.pop();
 
+    //retirer le program de la ram
+    Program swappedProgram = ram.at(swappedProgramName);
+    ram.erase(swappedProgramName);
+    swappedProgram.setLoaded(false);
+
+    //ajouter le program dans la memoire virtuel
+    virtualMemory.insert({swappedProgramName, swappedProgram});
+
+    //to do reorganiser les adresses de program
 }
 
 //Methode pour tester l'access en Memoire
