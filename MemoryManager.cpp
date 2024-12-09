@@ -20,8 +20,12 @@ bool MemoryManager::loadProgram(Program &program){
         swapOutProgram();
     }
 
+    //retirer le program de la memoire virtuel s'il y etait deja
+    virtualMemory.erase(program.getName());
+
     //ajouter le program dans la ram
     ram.insert({program.getName(), program});
+    ramQueue.push(program.getName());
     program.setStartAddress(currentRamAddress);
     program.setLoaded(true);
     currentRamAddress += program.getMemorySize();
@@ -42,6 +46,11 @@ void MemoryManager::swapOutProgram(){
     virtualMemory.insert({swappedProgramName, swappedProgram});
 
     //to do reorganiser les adresses de program
+    currentRamAddress = 0;
+    for (auto it = ram.begin(); it != ram.end(); it++){
+        it->second.setStartAddress(currentRamAddress);
+        currentRamAddress += it->second.getMemorySize();
+    }
 }
 
 //Methode pour tester l'access en Memoire
