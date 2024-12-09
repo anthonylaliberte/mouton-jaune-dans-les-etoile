@@ -23,11 +23,11 @@ bool MemoryManager::loadProgram(Program &program){
     if (currentRamAddress + program.getMemorySize() <= ramSize) {
         program.setStartAddress(currentRamAddress);
         program.setLoaded(true);
-        ram[program.getName()] = program;
+        ram.at(program.getName()) = program;
         currentRamAddress += program.getMemorySize();
         return true;
     } else {
-        virtualMemory[program.getName()] = program;
+        virtualMemory.at(program.getName()) = program;
         return false;
     }
 }

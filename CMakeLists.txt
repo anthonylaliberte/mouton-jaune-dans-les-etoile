@@ -10,15 +10,19 @@ set(OLD_SOURCE_FILES
         old/MemorySegment.h
         old/Program.h)
 
+set(TEAM_SOURCE_FILES
+        team/main-team.cpp)
+
 set(SOURCE_FILES
         main.cpp
-        MemoryManager.cpp
         MemoryManager.h
-        MemorySegment.cpp
+        MemoryManager.cpp
         MemorySegment.h
-        Program.cpp
+        MemorySegment.cpp
         Program.h
+        Program.cpp
         )
 
 add_executable(TP3_OLD old/main.cpp ${OLD_SOURCE_FILES})
+add_executable(TP3_TEAM team/main-team.cpp ${TEAM_SOURCE_FILES})
 add_executable(TP3 main.cpp ${SOURCE_FILES})
