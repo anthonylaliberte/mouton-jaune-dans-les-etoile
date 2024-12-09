@@ -1,8 +1,6 @@
-//
-// Created by Hamza Alaoui on 2024-11-15.
-//
 // SVP indiquer votre nom prenom et IDUL
-using namespace std;
+// BELOUCIF AHMED RAFIK - 537036872
+// Anthony Laliberté - 537029645
 
 #include <unordered_map>
 #include <iostream>
