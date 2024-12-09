@@ -1,0 +1,42 @@
+//
+// Created by Hamza Alaoui on 2024-11-15.
+//
+// SVP indiquer votre nom prenom et IDUL
+
+#include <vector>
+#include <stdexcept>
+#include "MemorySegment.h"
+
+//Constructeur
+MemorySegment::MemorySegment(size_t startAddress, size_t size, AccessType accessType)
+: startAddress(startAddress), size(size), accessType(accessType), memory(size, 0) {
+
+}
+
+//Methode pour tester le type d'access
+bool  MemorySegment::canAccess(size_t address, AccessType requestType) const{
+    return address >= startAddress && address < startAddress + size &&
+           (requestType == READ_ONLY || accessType == READ_WRITE);
+}
+
+//Methode pour lire un char dans une adresse
+char  MemorySegment::read(size_t address) const{
+    if (!canAccess(address, READ_ONLY)) throw std::runtime_error("Access violation");
+    return memory[address - startAddress];
+}
+//Methode pour ecrire la valeur un char dans une adresse
+void  MemorySegment::write(size_t address, char value){
+    if (!canAccess(address, READ_WRITE)) throw std::runtime_error("Access violation");
+    memory[address - startAddress] = value;
+}
+
+//Methode getter avoir le debut d'adresse du segment
+size_t  MemorySegment::getStartAddress() const{
+    return startAddress;
+}
+
+//Methode pour avoir l'adresse de fin du segment
+size_t  MemorySegment::getEndAddress() const{
+    return startAddress + size;
+}
+
