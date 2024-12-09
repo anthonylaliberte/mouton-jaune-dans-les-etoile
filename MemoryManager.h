@@ -11,7 +11,7 @@
 
 class MemoryManager {
 public:
-    //MemoryManager();
+    MemoryManager();
 
     //Constructeur adequat
     MemoryManager(size_t ramSize, size_t virtualMemorySize);

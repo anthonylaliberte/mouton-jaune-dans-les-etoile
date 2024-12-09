@@ -2,17 +2,14 @@
 // Created by Hamza Alaoui on 2024-11-15.
 //
 // SVP indiquer votre nom prenom et IDUL
+using namespace std;
 
 #include <unordered_map>
 #include <iostream>
 #include "MemoryManager.h"
 #include "Program.h"
 
-/*
-MemoryManager::MemoryManager(){
-    std::cout << "MemoryManager" << std::endl;
-}
-*/
+MemoryManager::MemoryManager(){}
 
 //Constructeur adequat
 MemoryManager::MemoryManager(size_t ramSize, size_t virtualMemorySize):
@@ -23,11 +20,11 @@ bool MemoryManager::loadProgram(Program &program){
     if (currentRamAddress + program.getMemorySize() <= ramSize) {
         program.setStartAddress(currentRamAddress);
         program.setLoaded(true);
-        ram.at(program.getName()) = program;
+        ram.insert({program.getName(), program});
         currentRamAddress += program.getMemorySize();
         return true;
     } else {
-        virtualMemory.at(program.getName()) = program;
+        virtualMemory.insert({program.getName(), program});
         return false;
     }
 }
