@@ -27,14 +27,14 @@ int main() {
 
     // Initialisation
 
-    const size_t NUMBER_OF_BIT_IN_MB = 1024 * 1024;
-    MemoryManager memoryManager(4 * NUMBER_OF_BIT_IN_MB, 10 * NUMBER_OF_BIT_IN_MB);
+    const size_t SIZE_OF_MB = 1024 * 1024;
+    MemoryManager memoryManager(4 * SIZE_OF_MB, 10 * SIZE_OF_MB);
 
     // Création des programmes
-    Program program1("Program1", 1 * NUMBER_OF_BIT_IN_MB, {"Instruction1"});
-    Program program2("Program2", 2 * NUMBER_OF_BIT_IN_MB, {"Instruction1"});
-    Program program3("Program3", 1 * NUMBER_OF_BIT_IN_MB, {"Instruction1"});
-    Program program4("Program4", 2 * NUMBER_OF_BIT_IN_MB, {"Instruction1"});
+    Program program1("Program1", 1 * SIZE_OF_MB, {"Instruction1"});
+    Program program2("Program2", 2 * SIZE_OF_MB, {"Instruction1"});
+    Program program3("Program3", 1 * SIZE_OF_MB, {"Instruction1"});
+    Program program4("Program4", 2 * SIZE_OF_MB, {"Instruction1"});
 
     // Chargement des programmes 1 à 4
     memoryManager.loadProgram(program1);
@@ -50,8 +50,8 @@ int main() {
     memoryManager.unloadAllPrograms();
 
     // Création des programmes 5 et 6
-    Program program5("Program5", 1 * NUMBER_OF_BIT_IN_MB, {"Instruction1"});
-    Program program6("Program6", 2 * NUMBER_OF_BIT_IN_MB, {"Instruction1"});
+    Program program5("Program5", 1 * SIZE_OF_MB, {"Instruction1"});
+    Program program6("Program6", 2 * SIZE_OF_MB, {"Instruction1"});
 
     // Chargement des programmes 5 et 6
     memoryManager.loadProgram(program5);

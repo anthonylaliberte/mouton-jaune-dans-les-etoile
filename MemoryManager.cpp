@@ -48,8 +48,9 @@ void MemoryManager::swapOutProgram(){
     //to do reorganiser les adresses de program
     currentRamAddress = 0;
     for (auto it = ram.begin(); it != ram.end(); it++){
-        it->second.setStartAddress(currentRamAddress);
-        currentRamAddress += it->second.getMemorySize();
+        Program program = it->second;
+        program.setStartAddress(currentRamAddress);
+        currentRamAddress += program.getMemorySize();
     }
 }
 
@@ -90,8 +91,8 @@ void MemoryManager::testMemoryAccess(Program &program, size_t address, bool writ
 //Methode pour afficher l'état de la RAM et memoire virtuelle
 void MemoryManager::displayMemoryState() const{
     std::cout << "--- Etat de la RAM ---\n";
-    for (const auto &entry : ram) {
-        const auto &program = entry.second;
+    for (auto it = ram.begin(); it != ram.end(); it++){
+        Program program = it->second;
         std::cout << "Programme : " << program.getName()
                   << " | Adresse de depart : " << program.getStartAddress()
                   << " | Taille : " << program.getMemorySize() << " octets\n";
