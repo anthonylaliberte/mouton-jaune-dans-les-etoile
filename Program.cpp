@@ -39,7 +39,7 @@ size_t Program::getMemorySize() const{
     return memorySize;
 }
 
-const std::string& Program::getName() const{
+const std::string& Program::getName(){
     return name;
 }
 
