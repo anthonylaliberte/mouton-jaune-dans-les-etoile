@@ -11,7 +11,7 @@ MemoryManager::MemoryManager(){}
 
 //Constructeur adequat
 MemoryManager::MemoryManager(size_t ramSize, size_t virtualMemorySize):
-    ramSize(ramSize), virtualMemorySize(virtualMemorySize), currentRamAddress(0), ram() {}
+    ramSize(ramSize), virtualMemorySize(virtualMemorySize), currentRamAddress(0), currentVirtualMemoryUsed(0) {}
 
 //Methode pour charger le programme
 bool MemoryManager::loadProgram(Program &program){
