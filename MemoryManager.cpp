@@ -28,11 +28,11 @@ bool MemoryManager::loadProgram(Program &program){
     virtualMemory.erase(program.getName());
 
     //ajouter le program dans la ram
-    ram.insert({program.getName(), program});
-    ramQueue.push(program.getName());
     program.setStartAddress(currentRamAddress);
     program.setLoaded(true);
     currentRamAddress += program.getMemorySize();
+    ram.insert({program.getName(), program});
+    ramQueue.push(program.getName());
 
     return true;
 }
@@ -55,7 +55,7 @@ void MemoryManager::swapOutProgram(){
     //reorganiser les adresses de program
     currentRamAddress = 0;
     for (auto it = ram.begin(); it != ram.end(); it++){
-        Program program = it->second;
+        Program &program = it->second;
         program.setStartAddress(currentRamAddress);
         currentRamAddress += program.getMemorySize();
     }
