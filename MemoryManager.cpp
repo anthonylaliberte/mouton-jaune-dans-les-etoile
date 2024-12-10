@@ -17,6 +17,10 @@ MemoryManager::MemoryManager(size_t ramSize, size_t virtualMemorySize):
 bool MemoryManager::loadProgram(Program &program){
     //s'assurer qu'il y a assez de place dans la ram pour le program
     while(currentRamAddress + program.getMemorySize() > ramSize){
+        //s'il n'y a pas de assez de place dans la memoire virtuel il n'est pas possible de charger le program
+        if(currentVirtualMemoryUsed + program.getMemorySize() > virtualMemorySize){
+            return false;
+        }
         swapOutProgram();
     }
 
@@ -29,6 +33,8 @@ bool MemoryManager::loadProgram(Program &program){
     program.setStartAddress(currentRamAddress);
     program.setLoaded(true);
     currentRamAddress += program.getMemorySize();
+
+    return true;
 }
 
 //Methode pour swapperOut le programme
@@ -42,10 +48,6 @@ void MemoryManager::swapOutProgram(){
     ram.erase(swappedProgramName);
     swappedProgram.setLoaded(false);
 
-    //s'assurer que le program a assez de memoire virtuel
-    if(currentVirtualMemoryUsed + swappedProgram.getMemorySize() > virtualMemorySize){
-        throw std::runtime_error("Not enough virtual memory");
-    }
     //ajouter le program dans la memoire virtuel
     virtualMemory.insert({swappedProgramName, swappedProgram});
     currentVirtualMemoryUsed += swappedProgram.getMemorySize();
