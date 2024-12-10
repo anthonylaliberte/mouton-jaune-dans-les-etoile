@@ -28,13 +28,24 @@ int main() {
     // Initialisation
 
     const size_t SIZE_OF_MB = 1024 * 1024;
+    const size_t SIZE_OF_PROGRAM_1 = 1 * SIZE_OF_MB,
+            SIZE_OF_PROGRAM_2 = 2 * SIZE_OF_MB,
+            SIZE_OF_PROGRAM_3 = 1 * SIZE_OF_MB,
+            SIZE_OF_PROGRAM_4 = 2 * SIZE_OF_MB,
+            SIZE_OF_PROGRAM_5 = 1 * SIZE_OF_MB,
+            SIZE_OF_PROGRAM_6 = 2 * SIZE_OF_MB;
+    const size_t START_OF_PROGRAM_5_INSTRUCTION = 0,
+            START_OF_PROGRAM_5_DATA = START_OF_PROGRAM_5_INSTRUCTION + SIZE_OF_PROGRAM_5 * 4 / 5,
+            START_OF_PROGRAM_6_INSTRUCTION = START_OF_PROGRAM_5_INSTRUCTION + SIZE_OF_PROGRAM_5,
+            START_OF_PROGRAM_6_DATA = START_OF_PROGRAM_6_INSTRUCTION + + SIZE_OF_PROGRAM_6 * 4 / 5;
+
     MemoryManager memoryManager(4 * SIZE_OF_MB, 10 * SIZE_OF_MB);
 
     // Création des programmes
-    Program program1("Program1", 1 * SIZE_OF_MB, {"Instruction1"});
-    Program program2("Program2", 2 * SIZE_OF_MB, {"Instruction1"});
-    Program program3("Program3", 1 * SIZE_OF_MB, {"Instruction1"});
-    Program program4("Program4", 2 * SIZE_OF_MB, {"Instruction1"});
+    Program program1("Program1", SIZE_OF_PROGRAM_1, {"Instruction1"});
+    Program program2("Program2", SIZE_OF_PROGRAM_2, {"Instruction1"});
+    Program program3("Program3", SIZE_OF_PROGRAM_3, {"Instruction1"});
+    Program program4("Program4", SIZE_OF_PROGRAM_4, {"Instruction1"});
 
     // Chargement des programmes 1 à 4
     memoryManager.loadProgram(program1);
@@ -50,8 +61,8 @@ int main() {
     memoryManager.unloadAllPrograms();
 
     // Création des programmes 5 et 6
-    Program program5("Program5", 1 * SIZE_OF_MB, {"Instruction1"});
-    Program program6("Program6", 2 * SIZE_OF_MB, {"Instruction1"});
+    Program program5("Program5", SIZE_OF_PROGRAM_5, {"Instruction1"});
+    Program program6("Program6", SIZE_OF_PROGRAM_6, {"Instruction1"});
 
     // Chargement des programmes 5 et 6
     memoryManager.loadProgram(program5);
@@ -60,12 +71,12 @@ int main() {
     memoryManager.displayMemoryState();
 
     // Accès mémoire pour Program5
-    memoryManager.testMemoryAccess(program5, 0, false);       // Lecture instructions
-    memoryManager.testMemoryAccess(program5, 524288, true);   // Ecriture données
+    memoryManager.testMemoryAccess(program5, START_OF_PROGRAM_5_INSTRUCTION, false);       // Lecture instructions
+    memoryManager.testMemoryAccess(program5, START_OF_PROGRAM_5_DATA, true);   // Ecriture données
 
     // Accès mémoire pour Program6
-    memoryManager.testMemoryAccess(program6, 1048576, false); // Lecture instructions
-    memoryManager.testMemoryAccess(program6, 2097152, true);  // Ecriture données (adresse corrigée)
+    memoryManager.testMemoryAccess(program6, START_OF_PROGRAM_6_INSTRUCTION, false); // Lecture instructions
+    memoryManager.testMemoryAccess(program6, START_OF_PROGRAM_6_DATA, true);  // Ecriture données (adresse corrigée)
 
     return 0;
 }
