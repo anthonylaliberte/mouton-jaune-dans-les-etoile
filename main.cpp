@@ -70,13 +70,17 @@ int main() {
     memoryManager.loadProgram(program6);
     memoryManager.displayMemoryState();
 
-    // Accès mémoire pour Program5
-    memoryManager.testMemoryAccess(program5, START_OF_PROGRAM_5_INSTRUCTION, false);       // Lecture instructions
-    memoryManager.testMemoryAccess(program5, START_OF_PROGRAM_5_DATA, true);   // Ecriture données
+    // Valider l'acces memoire pour Program5
+    memoryManager.testMemoryAccess(program5, START_OF_PROGRAM_5_INSTRUCTION, false);
+    memoryManager.testMemoryAccess(program5, START_OF_PROGRAM_5_INSTRUCTION, true);
+    memoryManager.testMemoryAccess(program5, START_OF_PROGRAM_5_DATA, false);
+    memoryManager.testMemoryAccess(program5, START_OF_PROGRAM_5_DATA, true);
 
-    // Accès mémoire pour Program6
-    memoryManager.testMemoryAccess(program6, START_OF_PROGRAM_6_INSTRUCTION, false); // Lecture instructions
-    memoryManager.testMemoryAccess(program6, START_OF_PROGRAM_6_DATA, true);  // Ecriture données (adresse corrigée)
+    // Valider l'acces memoire pour Program6
+    memoryManager.testMemoryAccess(program6, START_OF_PROGRAM_6_INSTRUCTION, false);
+    memoryManager.testMemoryAccess(program6, START_OF_PROGRAM_6_INSTRUCTION, true);
+    memoryManager.testMemoryAccess(program6, START_OF_PROGRAM_6_DATA, false);
+    memoryManager.testMemoryAccess(program6, START_OF_PROGRAM_6_DATA, true);
 
     return 0;
 }

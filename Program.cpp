@@ -23,7 +23,7 @@ void Program::setStartAddress(size_t startAddress){
 }
 
 //Getters et Setters
-const MemorySegment& Program::getInstructionsSegment(){
+MemorySegment& Program::getInstructionsSegment(){
     return instructionsSegment;
 }
 

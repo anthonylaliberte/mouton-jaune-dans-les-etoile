@@ -21,7 +21,7 @@ public:
     void setStartAddress(size_t startAddress);
 
     //Getters et Setters
-    const MemorySegment& getInstructionsSegment();
+    MemorySegment& getInstructionsSegment();
     MemorySegment& getDataSegment();
     size_t getStartAddress() const;
     size_t getMemorySize() const;

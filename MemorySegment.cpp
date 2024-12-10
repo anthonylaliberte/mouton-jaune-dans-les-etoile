@@ -19,12 +19,12 @@ bool MemorySegment::canAccess(size_t address, AccessType requestType) const{
 
 //Methode pour lire un char dans une adresse
 char MemorySegment::read(size_t address) const{
-    if (!canAccess(address, READ_ONLY)) throw std::runtime_error("Access violation");
+    if (!canAccess(address, READ_ONLY)) throw std::runtime_error("Access violation: cannot read");
     return memory.at(address - startAddress);
 }
 //Methode pour ecrire la valeur un char dans une adresse
 void MemorySegment::write(size_t address, char value){
-    if (!canAccess(address, READ_WRITE)) throw std::runtime_error("Access violation");
+    if (!canAccess(address, READ_WRITE)) throw std::runtime_error("Access violation: cannot write");
     memory.at(address - startAddress) = value;
 }
 

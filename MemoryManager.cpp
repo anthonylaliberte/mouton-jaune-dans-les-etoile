@@ -63,32 +63,40 @@ void MemoryManager::swapOutProgram(){
 
 //Methode pour tester l'access en Memoire
 void MemoryManager::testMemoryAccess(Program &program, size_t address, bool writeOperation) {
-    try {
-        // Récupérer les plages des segments
-        size_t instrStart = program.getInstructionsSegment().getStartAddress();
-        size_t instrEnd = program.getInstructionsSegment().getEndAddress();
-        size_t dataStart = program.getDataSegment().getStartAddress();
-        size_t dataEnd = program.getDataSegment().getEndAddress();
+    // Récupérer les plages des segments
+    size_t instrStart = program.getInstructionsSegment().getStartAddress();
+    size_t instrEnd = program.getInstructionsSegment().getEndAddress();
+    size_t dataStart = program.getDataSegment().getStartAddress();
+    size_t dataEnd = program.getDataSegment().getEndAddress();
 
-        // Afficher les plages d'adresses pour vérifier
-        std::cout << "Instruction Segment: [" << instrStart << ", " << instrEnd << "]\n";
-        std::cout << "Data Segment: [" << dataStart << ", " << dataEnd << "]\n";
-
+    try{
         // Vérifier et effectuer l'accès
-        if (writeOperation) { // Ecriture
-            if (address >= dataStart && address < dataEnd) {
+        if (address >= dataStart && address < dataEnd) {
+            // Afficher les plages d'adresses de data pour vérifier
+            std::cout << "Data Segment: [" << dataStart << ", " << dataEnd << "]\n";
+
+            //essayer de lire ou d'ecrir en memoire
+            if (writeOperation) {
                 program.getDataSegment().write(address, 'A');
                 std::cout << "Write access successful at address: " << address << "\n";
             } else {
-                throw std::runtime_error("Access violation: Address outside data segment");
+                char value = program.getDataSegment().read(address);
+                std::cout << "Read access successful at address: " << address << ", value: " << value << "\n";
             }
-        } else { // Lecture
-            if (address >= instrStart && address < instrEnd) {
+        } else if (address >= instrStart && address < instrEnd) {
+            // Afficher les plages d'adresses d'instruction pour vérifier
+            std::cout << "Instruction Segment: [" << instrStart << ", " << instrEnd << "]\n";
+
+            //essayer de lire ou d'ecrir en memoire
+            if (writeOperation) {
+                program.getInstructionsSegment().write(address, 'A');
+                std::cout << "Write access successful at address: " << address << "\n";
+            } else {
                 char value = program.getInstructionsSegment().read(address);
                 std::cout << "Read access successful at address: " << address << ", value: " << value << "\n";
-            } else {
-                throw std::runtime_error("Access violation: Address outside instruction segment");
             }
+        } else {
+            throw std::runtime_error("Address outside instruction segment");
         }
     } catch (const std::exception &e) {
         std::cout << "Memory access error at address: " << address << " - " << e.what() << "\n";
