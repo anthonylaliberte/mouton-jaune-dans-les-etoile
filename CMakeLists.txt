@@ -5,7 +5,6 @@ set(CMAKE_CXX_STANDARD 11)
 
 set(OLD_SOURCE_FILES
         old/main.cpp
-        old/MemoryManager.cpp
         old/MemoryManager.h
         old/MemorySegment.h
         old/Program.h)
