@@ -38,6 +38,7 @@ private:
     size_t ramSize;
     size_t virtualMemorySize;
     size_t currentRamAddress;
+    size_t currentVirtualMemoryUsed;
     std::unordered_map<std::string, Program> ram;
     std::unordered_map<std::string, Program> virtualMemory;
     std::queue<std::string> ramQueue;

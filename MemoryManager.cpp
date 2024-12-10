@@ -42,10 +42,15 @@ void MemoryManager::swapOutProgram(){
     ram.erase(swappedProgramName);
     swappedProgram.setLoaded(false);
 
+    //s'assurer que le program a assez de memoire virtuel
+    if(currentVirtualMemoryUsed + swappedProgram.getMemorySize() > virtualMemorySize){
+        throw std::runtime_error("Not enough virtual memory");
+    }
     //ajouter le program dans la memoire virtuel
     virtualMemory.insert({swappedProgramName, swappedProgram});
+    currentVirtualMemoryUsed += swappedProgram.getMemorySize();
 
-    //to do reorganiser les adresses de program
+    //reorganiser les adresses de program
     currentRamAddress = 0;
     for (auto it = ram.begin(); it != ram.end(); it++){
         Program program = it->second;
